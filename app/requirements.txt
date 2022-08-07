@@ -1,0 +1,6 @@
+logzero==1.7.0
+requests==2.26.0
+pyminizip==0.2.6
+azure-identity==1.6.1
+azure-keyvault-secrets==4.4.0
+Office365-REST-Python-Client==2.3.11

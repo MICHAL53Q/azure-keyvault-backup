@@ -1,0 +1,32 @@
+version: '3'
+services:
+  azure-keyvault-backup:
+    build: .
+    container_name: azure-keyvault-backup
+    environment:
+      # Password for backups
+      - KEYVAULT_BACKUP_PASSWORD=${KEYVAULT_BACKUP_PASSWORD}
+
+      # Auth KeyVault
+      - KEYVAULT_TENANT_ID=${KEYVAULT_TENANT_ID}
+      - KEYVAULT_CLIENT_ID=${KEYVAULT_CLIENT_ID}
+      - KEYVAULT_CLIENT_SECRET=${KEYVAULT_CLIENT_SECRET}
+
+      # Auth SharePoint
+      - SHAREPOINT_URL=${SHAREPOINT_URL}
+      - SHAREPOINT_DIR=${SHAREPOINT_DIR}
+      - SHAREPOINT_CLIENT_ID=${SHAREPOINT_CLIENT_ID}
+      - SHAREPOINT_CLIENT_SECRET=${SHAREPOINT_CLIENT_SECRET}
+      
+      # Paths
+      - PATH_CONFIG=/etc/azure-keyvault-backup.json
+      - PATH_CACHE=/mnt/cache
+      - PATH_ARCHIVE=/mnt/archive
+    volumes:
+      - ./app:/usr/src/app
+      - ./configs/azure-keyvault-backup.json:/etc/azure-keyvault-backup.json
+      - ./tmp/cache:/mnt/cache
+      - ./tmp/archive:/mnt/archive
+    # stdin_open: true
+    # tty: true
+    # command: tail -f /dev/null
